@@ -1,0 +1,121 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --paper: oklch(97% 0.015 88);
+  --ink: oklch(20% 0.02 55);
+  --marigold: oklch(74% 0.16 58);
+  --clay: oklch(56% 0.14 32);
+  --emerald: oklch(40% 0.09 170);
+
+  /* shadcn semantic mapping onto Arthsaathi tokens */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: oklch(92% 0.015 88);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(92% 0.015 88);
+  --muted-foreground: oklch(45% 0.02 55);
+  --accent: var(--marigold);
+  --accent-foreground: var(--ink);
+  --destructive: var(--clay);
+  --border: var(--ink);
+  --input: var(--ink);
+  --ring: var(--marigold);
+  --radius: 0.5rem;
+
+  /* charts */
+  --chart-1: var(--emerald);
+  --chart-2: var(--marigold);
+  --chart-3: var(--clay);
+  --chart-4: var(--ink);
+  --chart-5: oklch(60% 0.1 260);
+
+  /* sidebar */
+  --sidebar: var(--paper);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: var(--marigold);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--ink);
+  --sidebar-ring: var(--marigold);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-marigold: var(--marigold);
+  --color-clay: var(--clay);
+  --color-emerald: var(--emerald);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+@layer base {
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-feature-settings: "tnum" 1;
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, .font-display, .font-serif {
+    font-family: var(--font-serif), Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Signature card treatment: crisp ink border + hard offset shadow, no blur */
+@layer components {
+  .paper-card {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: 3px 3px 0 0 var(--ink);
+  }
+  .paper-card-sm {
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius);
+    box-shadow: 2px 2px 0 0 var(--ink);
+  }
+  .ticker-num {
+    font-family: var(--font-mono), monospace;
+    font-feature-settings: "tnum" 1;
+    font-variant-numeric: tabular-nums;
+  }
+}
