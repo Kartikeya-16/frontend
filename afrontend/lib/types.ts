@@ -268,12 +268,13 @@ export interface HealthScoreRequest {
 }
 
 export interface FeatureImportance {
-  emi_to_income_ratio: number;
-  savings_rate: number;
-  emergency_fund_months: number;
-  expense_to_income_ratio: number;
-  asset_to_liability_ratio: number;
-  goal_progress_avg: number;
+  emi_to_income_ratio?: number;
+  savings_rate?: number;
+  emergency_fund_months?: number;
+  expense_to_income_ratio?: number;
+  asset_to_liability_ratio?: number;
+  goal_progress_avg?: number;
+  [key: string]: number | undefined;
 }
 
 export interface HealthScoreResponse {
@@ -286,6 +287,20 @@ export interface HealthScoreResponse {
 
 /* ── Scam Shield (mock until ML service ready) ── */
 
+export interface ScamThreatIndicators {
+  extracted_urls?: string[];
+  extracted_upis?: string[];
+  extracted_phones?: string[];
+  spoofed_entities?: string[];
+}
+
+export interface ScamEmergencyAction {
+  helpline: string;
+  cybercrime_portal: string;
+  chakshu_portal: string;
+  report_guidelines: string[];
+}
+
 export interface ScamAnalysisRequest {
   type: "text" | "url" | "image" | "pdf";
   content: string;
@@ -293,10 +308,21 @@ export interface ScamAnalysisRequest {
 
 export interface ScamAnalysisResponse {
   scam_probability: number;
+  risk_level?: "HIGH" | "MEDIUM" | "SAFE" | string;
   category: string;
   warning_signs: string[];
+  threat_indicators?: ScamThreatIndicators;
   recommendation: string;
+  emergency_action?: ScamEmergencyAction;
   language_detected: string;
+}
+
+export interface ThreatIntelItem {
+  id: string;
+  title: string;
+  severity: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW";
+  summary: string;
+  safety_rule: string;
 }
 
 /* ── Scheme Navigator (Scheme Service 1) ── */
@@ -326,6 +352,7 @@ export interface MatchedScheme {
   benefits: string;
   apply_url?: string;
   official_url?: string;
+  apply_url_clean?: string;
   match_score: number;
   match_confidence: "high" | "medium" | "low";
   matched_criteria: string[];

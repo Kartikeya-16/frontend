@@ -63,8 +63,8 @@ export async function getSupportedLanguages(): Promise<Record<string, string>> {
         return proxyRes.data.languages;
       }
       return proxyRes.data as Record<string, string>;
-    } catch (err) {
-      console.warn("Translation service offline, using default fallback language map:", err);
+    } catch {
+      // Offline fallback
       return {
         eng_Latn: "English",
         hin_Deva: "Hindi",

@@ -14,6 +14,7 @@ function Dialog({ ...props }: DialogPrimitive.Root.Props) {
 function DialogTrigger({
   children,
   render,
+  asChild,
   ...props
 }: DialogPrimitive.Trigger.Props & { asChild?: boolean }) {
   if (render) {
@@ -32,6 +33,7 @@ function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {
 function DialogClose({
   children,
   render,
+  asChild,
   ...props
 }: DialogPrimitive.Close.Props & { asChild?: boolean }) {
   if (render) {

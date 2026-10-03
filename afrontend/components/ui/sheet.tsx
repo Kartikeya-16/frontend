@@ -14,6 +14,7 @@ function Sheet({ ...props }: SheetPrimitive.Root.Props) {
 function SheetTrigger({
   children,
   render,
+  asChild,
   ...props
 }: SheetPrimitive.Trigger.Props & { asChild?: boolean }) {
   if (render) {
@@ -28,6 +29,7 @@ function SheetTrigger({
 function SheetClose({
   children,
   render,
+  asChild,
   ...props
 }: SheetPrimitive.Close.Props & { asChild?: boolean }) {
   if (render) {
