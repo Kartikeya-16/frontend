@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { pageVariants, fadeInUp } from "@/lib/motion";
 import { clearTokens } from "@/lib/auth";
+import { useAdvisorStore } from "@/store/advisor-store";
 import { getMe } from "@/lib/api/auth";
 import type { UserResponse } from "@/lib/types";
 import {
@@ -77,12 +78,14 @@ export default function SettingsPage() {
 
   function handleLogout() {
     clearTokens();
+    useAdvisorStore.getState().clearSavedAnswers();
     router.push("/login");
     toast.success("Signed out successfully");
   }
 
   function handleDeleteData() {
     clearTokens();
+    useAdvisorStore.getState().clearSavedAnswers();
     setDeleteOpen(false);
     toast.success("All personal financial data and twin models permanently purged.");
     router.push("/login");

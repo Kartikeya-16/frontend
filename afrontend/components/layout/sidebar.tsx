@@ -14,6 +14,7 @@ import {
   ChevronRight,
   MessageSquareQuote,
   ReceiptText,
+  Compass,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -26,6 +27,7 @@ const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard", k: "nav.dashboard" },
   { href: "/twin", icon: Users, label: "Financial Twin", k: "nav.twin" },
   { href: "/statements", icon: ReceiptText, label: "Bank Statements", k: "nav.statements" },
+  { href: "/advisor", icon: Compass, label: "Financial Advisor", k: "nav.advisor" },
   { href: "/planner", icon: TrendingUp, label: "Smart Planner", k: "nav.planner" },
   { href: "/chat", icon: MessageSquareQuote, label: "AI Sathi", k: "nav.chat" },
   { href: "/scam-shield", icon: ShieldAlert, label: "Scam Shield", k: "nav.scam_shield" },

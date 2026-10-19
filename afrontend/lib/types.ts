@@ -412,3 +412,270 @@ export interface PaginatedTransactionsResponse {
   size: number;
   pages: number;
 }
+
+/* ── Financial Advisor (Feature 2) ── */
+
+export interface AdvisorLiability {
+  type: string;
+  outstanding_inr?: number;
+  outstanding_amount?: number;
+  interest_rate_pct?: number;
+  interest_rate?: number;
+  emi_inr?: number;
+  emi_amount?: number;
+  payoff_order?: number;
+}
+
+export interface AdvisorGoalInput {
+  goal_id: string;
+  name: string;
+  target_inr?: number;
+  target_amount?: number;
+  years: number;
+  current_savings_inr?: number;
+  current_savings?: number;
+  for_daughter?: boolean;
+}
+
+export interface AdvisorInsurance {
+  term_cover_inr: number;
+  health_cover_inr: number;
+}
+
+export interface AdvisorProfile {
+  age: number;
+  monthly_income_inr: number;
+  other_monthly_inflow_inr: number;
+  monthly_expenses_inr: number;
+  emergency_fund_inr: number;
+  liabilities: AdvisorLiability[];
+  insurance: AdvisorInsurance;
+  dependents: number;
+  daughters_under_10: number;
+  tax_regime: "new" | "old";
+  goals: AdvisorGoalInput[];
+  risk_answers: number[];
+}
+
+export interface TwinGap {
+  field: string;
+  message: string;
+  link: string;
+}
+
+export interface ProfileDraftResponse {
+  profile: AdvisorProfile;
+  missing_fields: string[];
+  skipped_goals: Array<{
+    goal_id: string;
+    name: string;
+    reason: string;
+  }>;
+  source?: Record<string, string>;
+  twin_gaps?: TwinGap[];
+  twin_updated_at?: string | null;
+}
+
+export interface QuestionnaireOption {
+  [key: string]: string;
+}
+
+export interface QuestionnaireItem {
+  id: string;
+  text: string;
+  options: Record<string, string>;
+}
+
+export interface QuestionnaireResponse {
+  questions: QuestionnaireItem[];
+}
+
+export interface AdvisorMetaResponse {
+  data_freshness: {
+    fd_rates_as_of: string;
+    small_savings_quarter: string;
+    small_savings_valid_to: string;
+    stale: boolean;
+  };
+  assumptions: {
+    inflation_pct: number;
+    equity_return_pct: number;
+    debt_return_pct: number;
+    min_monthly_sip_inr: number;
+  };
+  disclaimer: string;
+}
+
+export interface ActionProduct {
+  name: string;
+  category: string;
+  yield_or_rate?: string;
+  lock_in?: string;
+  why?: string;
+  [key: string]: unknown;
+}
+
+export interface AdvisorAction {
+  priority: number;
+  code: string;
+  status: "do_now" | "next" | string;
+  title: string;
+  amount_inr: number;
+  reasons: string[];
+  products: ActionProduct[];
+  payoff_order?: number;
+}
+
+export interface GoalInstrument {
+  category_id: string;
+  name: string;
+  role: "equity" | "debt" | "gold" | string;
+  reason: string;
+  assumed_return_pct?: number;
+}
+
+export interface TopFdOption {
+  bank_id: string;
+  bank_name: string;
+  bank_type: "sfb" | "psu" | "private" | string;
+  product: string;
+  tenure_bucket: string;
+  tenure_years: number;
+  rate_general_pct: number;
+  rate_senior_pct: number;
+  lock_in_years: number;
+  tax_deduction_eligible: boolean;
+  dicgc_cover_inr: number;
+  deposit_size_band: string;
+  source_url: string;
+  as_of_date: string;
+  notes: string;
+  note?: string;
+}
+
+export interface GoalFdOptions {
+  tenure: string;
+  top_fds: TopFdOption[];
+  dicgc_note?: string;
+}
+
+export interface PlanGoalDetail {
+  goal_id: string;
+  bucket: "short" | "medium" | "long" | string;
+  equity_share_pct: number;
+  required_monthly_sip_inr: number;
+  inflated_target_inr: number;
+  expected_return_pct: number;
+  split_monthly_inr: {
+    equity: number;
+    debt: number;
+  };
+  name: string;
+  years: number;
+  target_today_inr: number;
+  instruments: GoalInstrument[];
+  fd_options: GoalFdOptions;
+}
+
+export interface EligibleSmallSavingsScheme {
+  scheme_id: string;
+  name: string;
+  rate_pct: number;
+  lock_in_years: number;
+  tax_deduction_eligible: boolean;
+  interest_taxable: boolean;
+  sovereign_backed: boolean;
+}
+
+export interface TaxSavingOption {
+  instrument: string;
+  name: string;
+  rate_pct: number;
+  lock_in_years: number;
+  why: string;
+}
+
+export interface TaxSavingSection {
+  section: string;
+  limit_inr: number;
+  note: string;
+  options: TaxSavingOption[];
+}
+
+export interface AdvisorPlanSummary {
+  monthly_surplus_inr: number;
+  emergency_fund_months: number;
+  flags: string[];
+  first_action: string;
+  risk_score: number;
+  risk_profile: string;
+  goals: Array<{
+    goal_id: string;
+    bucket: string;
+    equity_share_pct: number;
+    required_monthly_sip_inr: number;
+  }>;
+  total_required_monthly_sip_inr: number;
+  goals_affordable: boolean;
+  eligible_small_savings: string[];
+  tax_saving_relevant: boolean;
+  inflow_inr: number;
+  outflow_inr: number;
+  emergency_fund_target_inr: number;
+}
+
+export interface AdvisorRiskSummary {
+  score: number;
+  profile: string;
+  questionnaire_profile: string;
+  capped_by: string | null;
+}
+
+export interface PostOfficeTdRate {
+  scheme_id: string;
+  name: string;
+  tenure_years: number;
+  rate_pct: number;
+  tax_deduction_eligible: boolean;
+  sovereign_backed: boolean;
+}
+
+export interface FdRecommendations {
+  rate_type: "general" | "senior" | string;
+  profile: string;
+  sfb_hidden: boolean;
+  by_tenure: {
+    "1y": TopFdOption[];
+    "3y": TopFdOption[];
+    "5y": TopFdOption[];
+    [key: string]: TopFdOption[];
+  };
+  tax_saver: TopFdOption[];
+  post_office_td: PostOfficeTdRate[];
+  dicgc_cover_inr: number;
+  safety_note: string;
+  as_of: string;
+}
+
+export interface AdvisorPlan {
+  summary: AdvisorPlanSummary;
+  risk: AdvisorRiskSummary;
+  actions: AdvisorAction[];
+  goals: PlanGoalDetail[];
+  fd_recommendations?: FdRecommendations;
+  eligible_small_savings: EligibleSmallSavingsScheme[];
+  tax_saving: TaxSavingSection | null;
+  assumptions: {
+    inflation_pct: number;
+    equity_return_pct: number;
+    debt_return_pct: number;
+    min_monthly_sip_inr: number;
+  };
+  data_freshness: {
+    fd_rates_as_of: string;
+    small_savings_quarter: string;
+    small_savings_valid_to: string;
+    stale: boolean;
+  };
+  disclaimer: string;
+}

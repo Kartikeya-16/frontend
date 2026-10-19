@@ -43,6 +43,17 @@ export const DICTIONARY: Record<string, Record<string, string>> = {
     kan_Knda: "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
     pan_Guru: "ਡੈਸ਼ਬੋਰਡ",
   },
+  "nav.advisor": {
+    eng_Latn: "Financial Advisor",
+    hin_Deva: "वित्तीय सलाहकार",
+    mar_Deva: "आर्थिक सल्लागार",
+    tam_Taml: "நிதி ஆலோசகர்",
+    tel_Telu: "ఆర్థిక సలహాదారు",
+    ben_Beng: "আর্থিক উপদেষ্টা",
+    guj_Gujr: "નાણાકીય સલાહકાર",
+    kan_Knda: "ಹಣಕಾಸು ಸಲಹೆಗಾರ",
+    pan_Guru: "ਵਿੱਤੀ ਸਲਾਹਕਾਰ",
+  },
   "nav.twin": {
     eng_Latn: "Financial Twin",
     hin_Deva: "फाइनेंशियल ट्विन",
